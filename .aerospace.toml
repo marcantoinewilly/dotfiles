@@ -89,3 +89,12 @@ run       = 'layout floating'
 [[on-window-detected]]
 if.app-id = 'com.apple.AppStore'
 run       = 'layout floating'
+[[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run       = 'layout floating'
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run       = 'layout floating'
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run       = 'layout floating'
