@@ -1,103 +1,104 @@
-after-login-command = []
-after-startup-command = ['exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=6.0']
 start-at-login = true
+
+after-startup-command = [
+  'exec-and-forget sketchybar >> $HOME/.sketchybar/service.log 2>&1',
+]
+
+exec-on-workspace-change = [
+  '/bin/bash',
+  '-c',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE FOCUSED_DISPLAY=$(aerospace list-monitors --focused | awk "{print $1}")',
+]
+
+on-focus-changed = [
+  'exec-and-forget sketchybar --trigger aerospace_focus_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
+]
+
 enable-normalization-flatten-containers = true
-enable-normalization-opposite-orientation-for-nested-containers = false
+enable-normalization-opposite-orientation-for-nested-containers = true
 accordion-padding = 30
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
-key-mapping.preset = 'qwerty'
+
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
-on-focus-changed = "move-mouse window-lazy-center"
+automatically-unhide-macos-hidden-apps = false
+
+[key-mapping]
+    preset = 'qwerty'
+
 [gaps]
-inner.horizontal = 8
-inner.vertical =   8
-outer.left =       8
-outer.bottom =     8
-outer.top =        8
-outer.right =      8
+    inner.horizontal = 20
+    inner.vertical =   20
+    outer.left =       20
+    outer.bottom =     20
+    outer.top =        20
+    outer.right =      20
+
 [mode.main.binding]
-alt-enter = 'exec-and-forget open -na "Google Chrome"'
-alt-backslash = 'exec-and-forget open -na Hyper'
-alt-slash = 'layout tiles horizontal vertical'
-alt-comma = 'layout accordion horizontal'
-alt-shift-left   = 'join-with left'
-alt-shift-right  = 'join-with right'
-alt-shift-up     = 'join-with up'
-alt-shift-down   = 'join-with down'
-alt-h = 'focus left'
-alt-j = 'focus down'
-alt-k = 'focus up'
-alt-l = 'focus right'
-alt-shift-h = 'move left'
-alt-shift-j = 'move down'
-alt-shift-k = 'move up'
-alt-shift-l = 'move right'
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
-alt-4 = 'workspace 4'
-alt-5 = 'workspace 5'
-alt-shift-1 = 'move-node-to-workspace 1'
-alt-shift-2 = 'move-node-to-workspace 2'
-alt-shift-3 = 'move-node-to-workspace 3'
-alt-shift-4 = 'move-node-to-workspace 4'
-alt-shift-5 = 'move-node-to-workspace 5'
-alt-shift-f = 'fullscreen'
-alt-tab = 'workspace-back-and-forth'
-alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
-alt-shift-semicolon = 'mode service'
-alt-shift-r = 'mode resize'
-[mode.resize.binding]
-h = 'resize width -50'
-j = 'resize height +50'
-k = 'resize height -50'
-l = 'resize width +50'
-b = 'balance-sizes'
-minus = 'resize smart -50'
-equal = 'resize smart +50'
-enter = 'mode main'
-esc = 'mode main'
-[mode.service.binding]
-esc = ['reload-config', 'mode main']
-r = ['flatten-workspace-tree', 'mode main']
-#s = ['layout sticky tiling', 'mode main'] 
-f = ['layout floating tiling', 'mode main']
-backspace = ['close-all-windows-but-current', 'mode main']
-alt-shift-h = ['join-with left', 'mode main']
-alt-shift-j = ['join-with down', 'mode main']
-alt-shift-k = ['join-with up', 'mode main']
-alt-shift-l = ['join-with right', 'mode main']
+
+    alt-slash = 'layout tiles horizontal vertical'
+    alt-comma = 'layout accordion horizontal vertical'
+
+    alt-h = 'focus left'
+    alt-j = 'focus down'
+    alt-k = 'focus up'
+    alt-l = 'focus right'
+    
+    alt-ctrl-h = 'join-with left'
+    alt-ctrl-j = 'join-with down'
+    alt-ctrl-k = 'join-with up'
+    alt-ctrl-l = 'join-with right'
+
+    alt-f = 'fullscreen'
+    alt-d = 'layout floating tiling'
+
+    alt-shift-h = 'move left'
+    alt-shift-j = 'move down'
+    alt-shift-k = 'move up'
+    alt-shift-l = 'move right'
+
+    alt-minus = 'resize smart -50'
+    alt-equal = 'resize smart +50'
+
+    alt-1 = 'workspace 1'
+    alt-2 = 'workspace 2'
+    alt-3 = 'workspace 3'
+    alt-4 = 'workspace 4'
+    alt-5 = 'workspace 5'
+    alt-t = 'workspace T'
+
+    
+    alt-shift-1 = 'move-node-to-workspace 1'
+    alt-shift-2 = 'move-node-to-workspace 2'
+    alt-shift-3 = 'move-node-to-workspace 3'
+    alt-shift-4 = 'move-node-to-workspace 4'
+    alt-shift-5 = 'move-node-to-workspace 5'
+    alt-shift-t = 'move-node-to-workspace T'
+    
+   
+    alt-tab = 'workspace-back-and-forth'
+    alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
 [[on-window-detected]]
-if.app-id = 'com.github.placeholder.Placeholder'
-run = "move-node-to-workspace XYZ"
-[[on-window-detected]]
-if.app-id = 'com.apple.finder'
-run       = 'layout floating'
-[[on-window-detected]]
-if.app-id = 'com.hnc.Discord'
-run       = 'layout floating'
-[[on-window-detected]]
-if.app-id = 'net.whatsapp.WhatsApp'
-run       = 'layout floating'
-[[on-window-detected]]
-if.app-id = 'com.apple.FaceTime'
-run       = 'layout floating'
-[[on-window-detected]]
-if.app-id = 'com.apple.PhotoBooth'
-run       = 'layout floating'
-[[on-window-detected]]
-if.app-id = 'com.apple.AppStore'
-run       = 'layout floating'
-[[on-window-detected]]
-if.app-id = 'com.apple.mail'
-run       = 'layout floating'
-[[on-window-detected]]
-if.app-id = 'com.apple.MobileSMS'
-run       = 'layout floating'
+if.app-id = 'com.citrix.receiver.icaviewer.mac'
+run = "move-node-to-workspace T"
+
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
-run       = 'layout floating'
+run = "move-node-to-workspace 4"
+
 [[on-window-detected]]
-if.app-id = 'com.tinyspeck.slackmacgap'
-run       = 'layout floating'
+if.app-id = 'com.openai.chat'
+run = "move-node-to-workspace 2"
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = "move-node-to-workspace 1"
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome.app.kjgfgldnnfoeklkmfkjfagphfepbbdan'
+run = "move-node-to-workspace 3"
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep'
+run = "move-node-to-workspace 3"
