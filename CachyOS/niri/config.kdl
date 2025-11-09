@@ -5,11 +5,13 @@
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Input
 
 input {
-    mod-key Super
+    mod-key "Super" // Use Super (Win) as MOD
 
     keyboard {
         xkb {
-            layout "de" // Use the German keyboard layout
+            layout "us"            // US (American) layout
+            // variant "intl"      // (Optional) US-International with dead keys
+            // options "caps:escape" // (Optional) remap CapsLock -> Escape
         }
         numlock // Enable numlock on startup
     }
@@ -149,8 +151,6 @@ binds {
     CTRL+SHIFT+3                        { screenshot-window; }
 
     // ─── Emergency Escape Key ───
-    // Use this when a fullscreen app blocks your keybinds.
-    // It disables any active keyboard shortcut inhibitor, restoring control.
     MOD+ESCAPE                          allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
     // ─── Exit / Power ───
@@ -162,7 +162,7 @@ binds {
 // ────────────── Startup Applications ──────────────
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Miscellaneous#spawn-at-startup
 
-spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1" // Polkit
+spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1" // Polkit (no shell)
 spawn-at-startup "xwayland-satellite" // XWayland support
 spawn-at-startup "swww-daemon" // Wallpaper daemon
 spawn-at-startup "swww" "img" "/usr/share/wallpapers/cachyos-wallpapers/Skyscraper.png" // Set wallpaper
