@@ -1,1 +1,1 @@
-WIP
+Lean Wayland Setup (niri, waybar, tofi) on CachyOS. Poor Man's Version on macOS (aerospace).
