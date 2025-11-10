@@ -41,7 +41,7 @@ binds {
     MOD+SHIFT+ESCAPE                     { show-hotkey-overlay; }
 
     // ─── Applications ───
-    MOD+SPACE                           hotkey-overlay-title="Open App Launcher: Wofi" { spawn "wofi" "--show" "drun"; }
+    MOD+SPACE                           hotkey-overlay-title="Open App Launcher: Tofi" { spawn "tofi-run"; }
     MOD+RETURN                          hotkey-overlay-title="Open Terminal: Kitty" { spawn "kitty"; }
     MOD+CTRL+RETURN                     hotkey-overlay-title="Open App Launcher: QS" { spawn "qs" "ipc" "call" "globalIPC" "toggleLauncher"; }
     MOD+B                               hotkey-overlay-title="Open Browser: firefox" { spawn "firefox"; }
