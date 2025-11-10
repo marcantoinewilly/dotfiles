@@ -41,8 +41,8 @@ binds {
     MOD+SHIFT+ESCAPE                     { show-hotkey-overlay; }
 
     // ─── Applications ───
-    MOD+SPACE                           hotkey-overlay-title="Open App Launcher: Tofi" { spawn "tofi-run"; }
-    MOD+RETURN                          hotkey-overlay-title="Open Terminal: Kitty" { spawn "kitty"; }
+    MOD+SPACE                           hotkey-overlay-title="Run" { spawn "/home/marcantoinewilly/.config/CachyOS/tofi/calc.sh"; }
+    MOD+RETURN                          hotkey-overlay-title="Open Terminal" { spawn "/home/marcantoinewilly/.config/CachyOS/bin/open-terminal.sh"; }
     MOD+CTRL+RETURN                     hotkey-overlay-title="Open App Launcher: QS" { spawn "qs" "ipc" "call" "globalIPC" "toggleLauncher"; }
     MOD+B                               hotkey-overlay-title="Open Browser: firefox" { spawn "firefox"; }
     MOD+ALT+L                           hotkey-overlay-title="Lock Screen: swaylock" { spawn "swaylock"; }
@@ -158,7 +158,6 @@ spawn-at-startup "xwayland-satellite" // XWayland support
 spawn-at-startup "/home/marcantoinewilly/.config/wallpaper/set-wallpaper.sh" // Set random wallpaper via swaybg
 spawn-at-startup "qs" // Launch Quickshell
 spawn-at-startup "vesktop" // Launch Vesktop
-spawn-at-startup "waybar" // Launch Waybar panel
 
 prefer-no-csd // Disable program decorations
 screenshot-path null // Disable screenshot saving
@@ -287,6 +286,7 @@ environment {
     QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
     XDG_SESSION_TYPE "wayland"
     XDG_CURRENT_DESKTOP "niri"
+    TERMINAL "kitty"
 }
 
 // ────────────── Misc ──────────────
