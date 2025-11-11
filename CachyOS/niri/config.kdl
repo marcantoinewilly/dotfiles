@@ -24,6 +24,12 @@ input {
     focus-follows-mouse // Automatically focus windows under the mouse pointer
 }
 
+// ────────────── Cursor ──────────────
+cursor {
+    xcursor-theme "WhiteSur-cursors"
+    xcursor-size 24
+}
+
 // ────────────── Output Configuration ──────────────
 // You can run `niri msg outputs` to get the correct name for your displays.
 // You will have to remove "/-" and edit it before it takes effect.
