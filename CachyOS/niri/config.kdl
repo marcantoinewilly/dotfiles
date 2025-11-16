@@ -1,70 +1,66 @@
-// Niri configuration for CachyOS
-// For documentation and full reference, see: https://github.com/YaLTeR/niri/wiki
-
-// ────────────── Input Configuration ──────────────
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Input
-
 input {
-    mod-key "Super" // Use Super (Win) as MOD
+    mod-key "Super"
 
     keyboard {
         xkb {
-            layout "us"            // US (American) layout
-            // variant "intl"      // (Optional) US-International with dead keys
-            // options "caps:escape" // (Optional) remap CapsLock -> Escape
+            layout "eu"
+
         }
-        numlock // Enable numlock on startup
+        numlock
     }
 
     touchpad {
-        tap // Enable tap-to-click
-        natural-scroll // Enable natural (macOS-style) scrolling
+        tap
+        natural-scroll
     }
 
-    focus-follows-mouse // Automatically focus windows under the mouse pointer
+    focus-follows-mouse
 }
 
-// ────────────── Cursor ──────────────
 cursor {
     xcursor-theme "WhiteSur-cursors"
-    xcursor-size 24
+    xcursor-size 30
 }
 
-// ────────────── Output Configuration ──────────────
-// You can run `niri msg outputs` to get the correct name for your displays.
-// You will have to remove "/-" and edit it before it takes effect.
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
+output "eDP-1" {
+    mode "1920x1200@359.979"
+    scale 1.0
+    transform "normal"
+    position x=3200 y=0
+}
+
+output "DP-2" {
+    mode "3840x2160@59.997"
+    scale 1.2
+    transform "270"
+    position x=-1800 y=0
+}
 
 output "DP-1" {
-    mode "2560x1440@359.979" // Set resolution and refresh rate
-    scale 1 // No scaling (use 2 for HiDPI)
+    mode "3840x2160@59.997"
+    scale 1.2
+    transform "normal"
+    position x=0 y=675
 }
 
-// ────────────── Keybindings ──────────────
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Key-Bindings
 
 binds {
-    MOD+SHIFT+ESCAPE                     { show-hotkey-overlay; }
+    MOD+SHIFT+ESCAPE                    { show-hotkey-overlay; }
 
-    // ─── Applications ───
-    MOD+SPACE                           hotkey-overlay-title="Run" { spawn "/home/marcantoinewilly/.config/CachyOS/tofi/calc.sh"; }
-    MOD+RETURN                          hotkey-overlay-title="Open Terminal" { spawn "/home/marcantoinewilly/.config/CachyOS/bin/open-terminal.sh"; }
+    MOD+SPACE                           hotkey-overlay-title="Run" { spawn "rofi" "-show" "drun"; }
+    MOD+RETURN                          hotkey-overlay-title="Open Terminal" { spawn "kitty"; }
     MOD+CTRL+RETURN                     hotkey-overlay-title="Open App Launcher: QS" { spawn "qs" "ipc" "call" "globalIPC" "toggleLauncher"; }
     MOD+B                               hotkey-overlay-title="Open Browser: firefox" { spawn "firefox"; }
-    MOD+ALT+L                           hotkey-overlay-title="Lock Screen: swaylock" { spawn "swaylock"; }
+    MOD+ALT+L                           hotkey-overlay-title="Lock Screen: sway1" { spawn "swaylock"; }
     
-    // Please choose your own file manager
     MOD+E                               hotkey-overlay-title="File Manager: Nautilus" { spawn "nautilus"; }
 
-    // ─── Audio Controls ───
     XF86AUDIORAISEVOLUME                allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
     XF86AUDIOLOWERVOLUME                allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
     XF86AUDIOMUTE                       allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AUDIOMICMUTE                    allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
-    // ─── Window Movement and Focus ───
     MOD+Q                               { close-window; }
-
     MOD+LEFT                            { focus-column-left; }
     MOD+H                               { focus-column-left; }
     MOD+RIGHT                           { focus-column-right; }
@@ -98,7 +94,6 @@ binds {
     MOD+SHIFT+CTRL+UP                   { move-column-to-monitor-up; }
     MOD+SHIFT+CTRL+DOWN                 { move-column-to-monitor-down; }
 
-    // ─── Workspace Switching ───
     MOD+WHEELSCROLLDOWN                 cooldown-ms=150 { focus-workspace-down; }
     MOD+WHEELSCROLLUP                   cooldown-ms=150 { focus-workspace-up; }
     MOD+CTRL+WHEELSCROLLDOWN            cooldown-ms=150 { move-column-to-workspace-down; }
@@ -128,7 +123,6 @@ binds {
 
     MOD+TAB                             { focus-workspace-previous; }
 
-    // ─── Layout Controls ───
     MOD+CTRL+F                          { expand-column-to-available-width; }
     MOD+C                               { center-column; }
     MOD+CTRL+C                          { center-visible-columns; }
@@ -147,33 +141,24 @@ binds {
     CTRL+SHIFT+3                        { screenshot-screen; }
     CTRL+SHIFT+2                        { screenshot-window; }
 
-    // ─── Emergency Escape Key ───
-    MOD+ESCAPE                          allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
-
     // ─── Exit / Power ───
     CTRL+ALT+DELETE                     { quit; } // Also quits Niri
     MOD+SHIFT+P                         { power-off-monitors; } // Turn off screens (useful for OLED or privacy)
-    MOD+O                               repeat=false { toggle-overview; }
+    MOD+ESCAPE                          repeat=false { toggle-overview; }
 }
 
-// ────────────── Startup Applications ──────────────
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Miscellaneous#spawn-at-startup
 
-spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1" // Polkit (no shell)
-spawn-at-startup "xwayland-satellite" // XWayland support
-spawn-at-startup "/home/marcantoinewilly/.config/wallpaper/set-wallpaper.sh" // Set random wallpaper via swaybg
-spawn-at-startup "qs" // Launch Quickshell
-spawn-at-startup "vesktop" // Launch Vesktop
+spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
+spawn-at-startup "xwayland-satellite"
+spawn-at-startup "qs"
+spawn-at-startup "sunsetr"
 
-prefer-no-csd // Disable program decorations
-screenshot-path null // Disable screenshot saving
-
-// ────────────── Layout Settings ──────────────
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
+prefer-no-csd
+screenshot-path "/home/marcantoinewilly/Pictures/Screenshots/niri-%Y-%m-%d-%H-%M-%S.png"
 
 layout {
-    gaps 16 // Gap between windows
-    center-focused-column "never" // Don’t auto-center focused column
+    gaps 16
+    center-focused-column "never"
 
     preset-column-widths {
         proportion 0.33333
@@ -195,12 +180,9 @@ layout {
     }
 
     background-color "transparent"
-
     struts {}
 }
 
-// ────────────── Animation Settings ──────────────
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Animations
 animations {
     workspace-switch {
         spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
@@ -234,39 +216,26 @@ animations {
     }
 }
 
-// ────────────── Named Workspaces ──────────────
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
 
+// WIP
 workspace "browser"
 workspace "chat"
-
-// ────────────── Window Rules ──────────────
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
-
-window-rule {
-    match at-startup=true app-id="vesktop"
-    open-on-workspace "chat"
-    open-maximized true
-}
 
 window-rule {
     match app-id="firefox"
     open-on-workspace "browser"
-    open-maximized true
+    open-maximized false
 }
 
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
-    open-floating true // Always float Firefox PiP windows
+    open-floating true
 }
 
 window-rule {
-    geometry-corner-radius 20 // Set every window radius to 20
+    geometry-corner-radius 20
     clip-to-geometry true
 }
-
-// ────────────── Layer Rules ──────────────
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Layer-Rules
 
 layer-rule {
     match namespace="^quickshell-wallpaper$"
@@ -282,9 +251,6 @@ layer-rule {
     place-within-backdrop true
 }
 
-// ────────────── Environment Variables ──────────────
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Miscellaneous#environment
-
 environment {
     DISPLAY ":1"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
@@ -295,7 +261,7 @@ environment {
     TERMINAL "kitty"
 }
 
-// ────────────── Misc ──────────────
+
 hotkey-overlay {
     skip-at-startup
 }
